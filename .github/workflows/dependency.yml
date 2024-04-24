@@ -13,7 +13,6 @@ jobs:
           id: git-check
           run: echo ::set-output name=modified::$(if git diff --staged --quiet; then echo "false"; else echo "true"; fi)
         - name: Commit and push if changed
-          if: steps.git-check.outputs.modified == 'true'
           run: |
               git config --global user.name 'moizBhai97'
               git config --global user.email 'moizrootsdha@gmail.com'
