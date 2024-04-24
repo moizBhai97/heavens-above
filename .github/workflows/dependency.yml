@@ -1,0 +1,22 @@
+name: Update Dependencies
+on:
+    schedule:
+        - cron: '0 0 * * *'
+jobs:
+    update:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v3
+        - run: npm install -g npm-check-updates
+        - run: ncu -u
+        - run: npm install
+        - name: Check for modified files
+          id: git-check
+          run: echo ::set-output name=modified::$(if git diff --staged --quiet; then echo "false"; else echo "true"; fi)
+        - name: Commit and push if changed
+          if: steps.git-check.outputs.modified == 'true'
+          run: |
+              git config --global user.name 'moizBhai97'
+              git config --global user.email 'moizrootsdha@gmail.com'
+              git commit -am 'chore: update dependencies'
+              git push
