@@ -24,7 +24,10 @@
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.0",
     "jsdoc": "^4.0.2",
-    "gh-pages": "^6.1.1"
+    "gh-pages": "^6.1.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "globals": "^15.0.0"
   },
   "repository": {
     "type": "git",
