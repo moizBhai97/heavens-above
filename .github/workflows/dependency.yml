@@ -7,9 +7,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v3
-        - run: npm install -g npm-check-updates
-        - run: ncu -u
-        - run: npm install
+        - name: Check updates
+          run: npm update
         - name: Check for modified files
           id: git-check
           run: echo ::set-output name=modified::$(if git diff --staged --quiet; then echo "false"; else echo "true"; fi)
