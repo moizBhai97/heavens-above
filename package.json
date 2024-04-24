@@ -5,11 +5,26 @@
   "description": "Scripts for scraping the Heavens Above website.",
   "main": "run.js",
   "scripts": {
-    "start": "node run.js"
+    "start": "node run.js",
+    "test": "echo \"Testing.\"",
+    "lint": "npx eslint .",
+    "build": "babel src -d dist",
+    "deploy": "echo \"Deploying.\"",
+    "tasks": "echo \"Tasks.\"",
+    "review": "echo \"Reviewing.\"",
+    "docs": "npx jsdoc -c jsdoc.json",
+    "custom-task": "echo \"Performing something.\""
   },
   "dependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
     "cheerio": "^1.0.0-rc.3",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0",
+    "jsdoc": "^4.0.2",
+    "gh-pages": "^6.1.1"
   },
   "repository": {
     "type": "git",
