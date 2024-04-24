@@ -11,9 +11,8 @@
     "build": "babel src -d dist",
     "deploy": "echo \"Deploying.\"",
     "tasks": "echo \"Running Tasks.\"",
-    "review": "echo \"Reviewing.\"",
     "docs": "npx jsdoc -c jsdoc.json",
-    "custom-task": "echo \"Performing something.\""
+    "custom-task": "echo \"Release notes.\""
   },
   "dependencies": {
     "@babel/cli": "^7.14.3",
