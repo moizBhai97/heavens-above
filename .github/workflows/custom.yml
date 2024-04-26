@@ -26,6 +26,7 @@ jobs:
           with:
             script: |
                     const tag_name = "${{ steps.create_tag.outputs.version }}";
+                    const commit_sha = process.env.GITHUB_SHA;
                     const release = {
                         owner: context.repo.owner,
                         repo: context.repo.repo,
