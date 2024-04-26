@@ -14,7 +14,7 @@ jobs:
         - name: Review syntax
           run: npm run lint
 
-        -name: Run tests
+        - name: Run tests
           run: npm run test
 
         - name: Add comment to PR
