@@ -7,6 +7,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v3
+          with:
+            fetch-depth: 0
         - name: Install Dependencies
           run: npm install
         - name: Update dependencies
@@ -15,7 +17,7 @@ jobs:
           run: npm test
         - name: Check for modified files
           id: git-check
-          run: echo ::set-output name=modified::$(if git diff --staged --quiet; then echo "false"; else echo "true"; fi)
+          run: echo ::set-output name=modified::$(if git diff --quiet; then echo "false"; else echo "true"; fi)
         - name: Commit changes
           if: steps.git-check.outputs.modified == 'true'
           run: |
@@ -23,6 +25,7 @@ jobs:
                 git config --global user.email 'moizrootsdha@gmail.com'
                 git commit -am 'chore: update dependencies'
         - name: Create Pull Request
+          if: steps.git-check.outputs.modified == 'true'
           uses: peter-evans/create-pull-request@v3
           with:
                 title: 'chore: update dependencies'
