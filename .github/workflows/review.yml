@@ -1,7 +1,7 @@
 name: Code Review Workflow
 on:
-    pull_request:
-        branches: [ moiz ]
+    push:
+        branches: [ main ]
 jobs:
     review:
         runs-on: ubuntu-latest
@@ -17,14 +17,3 @@ jobs:
         - name: Run tests
           run: npm run test
 
-        - name: Add comment to PR
-          uses: actions/github-script@v5
-          with:
-            script: |
-                    const issueNumber = context.issue.number;
-                    github.rest.issues.createComment({
-                        issue_number: issueNumber,
-                        owner: context.repo.owner,
-                        repo: context.repo.repo,
-                        body: 'Your pull request has been reviewed.'
-                    });
