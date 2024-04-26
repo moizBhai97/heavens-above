@@ -16,6 +16,16 @@ jobs:
           run: |
                 git tag ${{ steps.create_tag.outputs.version }}
                 git push origin ${{ steps.create_tag.outputs.version }}
+        - name: Update Changelog
+          run: |
+                echo "\n## [${{ steps.create_tag.outputs.version }}] - $(date +'%Y-%m-%d')" >> CHANGELOG.md
+        - name: Commit Changelog
+          run: |
+                git config --global user.name 'moizBhai97'
+                git config --global user.email 'moizrootsdha@gmail.com'
+                git add CHANGELOG.md
+                git commit -m "Update CHANGELOG.md for ${{ steps.create_tag.outputs.version }}"
+                git push
         - name: Create Release
           id: create_release
           uses: actions/create-release@v1
