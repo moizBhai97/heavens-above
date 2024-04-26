@@ -1,10 +1,21 @@
 const crypto = require('crypto');
 
+/**
+ * Gets the timestamp from a time string.
+ * @param {string} time - The time string.
+ * @returns {number} The timestamp.
+ */
 function getTimestamp(time) {
 	const arr = time.split(":");
 	return parseInt(arr[0]) * 3600 + parseInt(arr[1]) * 60 + parseInt(arr[2]);
 }
 
+/**
+ * Creates the options for a POST request.
+ * @param {string} target - The target URL.
+ * @param {Object} opt - The additional options.
+ * @returns {Object} The options for the request.
+ */
 function post_options(target, opt) {
 	return {
 		url: `https://www.heavens-above.com/${target}lat=39.9042&lng=116.4074&loc=%E5%8C%97%E4%BA%AC%E5%B8%82&alt=52&tz=ChST`,
@@ -28,6 +39,11 @@ function post_options(target, opt) {
 	};
 }
 
+/**
+ * Creates the options for a GET request.
+ * @param {string} target - The target URL.
+ * @returns {Object} The options for the request.
+ */
 function get_options(target) {
 	return {
 		url: `https://www.heavens-above.com/${target}lat=39.9042&lng=116.4074&loc=%E5%8C%97%E4%BA%AC%E5%B8%82&alt=52&tz=ChST`,
@@ -46,6 +62,11 @@ function get_options(target) {
 	};
 }
 
+/**
+ * Creates the options for an image request.
+ * @param {string} target - The target URL.
+ * @returns {Object} The options for the request.
+ */
 function image_options(target) {
 	return {
 		url: target,
@@ -64,6 +85,11 @@ function image_options(target) {
 	};
 }
 
+/**
+ * Creates the options for an Iridium request.
+ * @param {string} target - The target URL.
+ * @returns {Object} The options for the request.
+ */
 function iridium_options(target) {
 	return {
 		url: target,
@@ -83,6 +109,11 @@ function iridium_options(target) {
 	};
 }
 
+/**
+ * Creates the MD5 hash of a string.
+ * @param {string} str - The string to hash.
+ * @returns {string} The MD5 hash.
+ */
 function md5(str) {
 	return crypto.createHash('md5').update(str).digest('hex');
 }

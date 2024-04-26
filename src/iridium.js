@@ -3,8 +3,20 @@ const cheerio = require("cheerio");
 const fs = require("fs");
 const utils = require("./utils");
 
+/**
+ * An array of event names for Iridium flares.
+ * @type {string[]}
+ */
 const eventsIridium = ["brightness", "altitude", "azimuth", "satellite", "distanceToFlareCentre", "brightnessAtFlareCentre", "date", "time", "distanceToSatellite", "AngleOffFlareCentre-line", "flareProducingAntenna", "sunAltitude", "angularSeparationFromSun", "image", "id"];
 
+/**
+ * Fetches the table of Iridium flares from the website.
+ * @param {Object} config - The configuration options.
+ * @param {Object[]} [config.database] - The existing database of flares.
+ * @param {number} [config.counter] - The current counter for the number of flares fetched.
+ * @param {number} [config.opt] - Additional options for the request.
+ * @param {string} config.root - The root directory for saving the flares.
+ */
 function getTable(config) {
 	let database = config.database || [];
 	let counter = config.counter || 0;

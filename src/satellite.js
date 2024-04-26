@@ -3,10 +3,22 @@ const cheerio = require("cheerio");
 const fs = require("fs");
 const utils = require("./utils");
 
+/**
+ * An array of property names for satellite passes.
+ * @type {string[]}
+ * An array of event names for satellite passes.
+ * @type {string[]}
+ * An array of attribute names for satellite passes.
+ * @type {string[]}
+ */
 const property = ["url", "date", "brightness", "events", "passType", "image", "scoreData", "exist", "score", "id"];
 const events = ["rise", "reachAltitude10deg", "highestPoint", "dropBelowAltitude10deg", "set", "exitShadow", "enterShadow"];
 const attribute = ["time", "altitude", "azimuth", "distance", "brightness", "sunAltitude"];
 
+/**
+ * An array of comparison functions for satellite passes.
+ * @type {Function[]}
+ */
 const compare = [
 	function(a, b) {
 		return a[property[6]][1] >= b[property[6]][1] ? 1 : -1; //星等（越小越好）
@@ -21,8 +33,22 @@ const compare = [
 		return a[property[7]] <= b[property[7]] ? 1 : -1; //持续时间（越大越好）
 	}
 ];
+
+/**
+ * An array of weight values for satellite passes.
+ * @type {number[]}
+ */
 const weight = [9.5, 6, 6.5, 6.5];
 
+/**
+ * Fetches the table of satellite passes from the website.
+ * @param {Object} config - The configuration options.
+ * @param {Object[]} [config.database] - The existing database of passes.
+ * @param {number} [config.counter] - The current counter for the number of passes fetched.
+ * @param {number} [config.opt] - Additional options for the request.
+ * @param {string} config.root - The root directory for saving the passes.
+ * @param {number} config.target - The target satellite ID.
+ */
 function getTable(config) {
 	let database = config.database || [];
 	let counter = config.counter || 0;
