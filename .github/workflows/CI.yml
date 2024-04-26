@@ -12,7 +12,7 @@ jobs:
       run: npm install
     
     - name: Run tests
-      run: npm 
+      run: npm run test
     
     - name: Run linting
       run: npm run lint
