@@ -12,8 +12,8 @@ jobs:
           run: npm run custom-task
 
         - name: Create Tag
-            id: create_tag
-            run: echo ::set-output name=version::moiz-v$(date +'%Y%m%d%H%M%S')
+          id: create_tag
+          run: echo ::set-output name=version::moiz-v$(date +'%Y%m%d%H%M%S')
         
         - name: Push Tag
           run: |
