@@ -10,12 +10,20 @@ jobs:
         - name: Run Custom Tasks
           run: npm run custom-task
         - name: Create Tag
-          run: git tag v$(date +%Y%m%d%H%M%S)
+          id: create_tag
+          run: echo ::set-output name=version::v$(date +%Y%m%d%H%M%S)
         - name: Push Tag
-          run: git push origin v$(date +%Y%m%d%H%M%S)
+          run: |
+                git tag ${{ steps.create_tag.outputs.version }}
+                git push origin ${{ steps.create_tag.outputs.version }}
         - name: Create Release
-          uses: softprops/action-gh-release@v1
-          with:
-            body_path: ./CHANGELOG.md
+          id: create_release
+          uses: actions/create-release@v1
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          with:
+            tag_name: ${{ steps.create_tag.outputs.version }}
+            release_name: Release ${{ steps.create_tag.outputs.version }}
+            body_path: ./CHANGELOG.md
+            draft: false
+            prerelease: false
