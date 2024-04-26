@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: utils.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: utils.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const crypto = require('crypto');
+
+/**
+ * Gets the timestamp from a time string.
+ * @param {string} time - The time string.
+ * @returns {number} The timestamp.
+ */
+function getTimestamp(time) {
+	const arr = time.split(":");
+	return parseInt(arr[0]) * 3600 + parseInt(arr[1]) * 60 + parseInt(arr[2]);
+}
+
+/**
+ * Creates the options for a POST request.
+ * @param {string} target - The target URL.
+ * @param {Object} opt - The additional options.
+ * @returns {Object} The options for the request.
+ */
+function post_options(target, opt) {
+	return {
+		url: `https://www.heavens-above.com/${target}lat=39.9042&amp;lng=116.4074&amp;loc=%E5%8C%97%E4%BA%AC%E5%B8%82&amp;alt=52&amp;tz=ChST`,
+		method: "POST",
+		json: true,
+		body: opt,
+		headers: {
+			"Host": "www.heavens-above.com",
+			"Connection": "keep-alive",
+			"Cache-Control": "max-age=0",
+			"Origin": "https://www.heavens-above.com",
+			"Upgrade-Insecure-Requests": "1",
+			"DNT": "1",
+			"Content-Type": "application/x-www-form-urlencoded",
+			"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Safari/605.1.15",
+			"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+			"Accept-Encoding": "deflate, br",
+			"Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+			"Cookie": "ASP.NET_SessionId=4swouj1mkd2nburls12t5ryx; preferences=showDaytimeFlares=True; userInfo=lat=39.9042&amp;lng=116.4074&amp;alt=52&amp;tz=ChST&amp;loc=%e5%8c%97%e4%ba%ac%e5%b8%82"
+		}
+	};
+}
+
+/**
+ * Creates the options for a GET request.
+ * @param {string} target - The target URL.
+ * @returns {Object} The options for the request.
+ */
+function get_options(target) {
+	return {
+		url: `https://www.heavens-above.com/${target}lat=39.9042&amp;lng=116.4074&amp;loc=%E5%8C%97%E4%BA%AC%E5%B8%82&amp;alt=52&amp;tz=ChST`,
+		method: "GET",
+		headers: {
+			"Host": "www.heavens-above.com",
+			"Connection": "keep-alive",
+			"Upgrade-Insecure-Requests": "1",
+			"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Safari/605.1.15",
+			"DNT": "1",
+			"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+			"Accept-Encoding": "deflate, br",
+			"Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+			"Cookie": "ASP.NET_SessionId=4swouj1mkd2nburls12t5ryx; preferences=showDaytimeFlares=True; userInfo=lat=39.9042&amp;lng=116.4074&amp;alt=52&amp;tz=ChST&amp;loc=%e5%8c%97%e4%ba%ac%e5%b8%82"
+		}
+	};
+}
+
+/**
+ * Creates the options for an image request.
+ * @param {string} target - The target URL.
+ * @returns {Object} The options for the request.
+ */
+function image_options(target) {
+	return {
+		url: target,
+		method: "GET",
+		headers: {
+			"Host": "www.heavens-above.com",
+			"Connection": "keep-alive",
+			"Upgrade-Insecure-Requests": "1",
+			"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Safari/605.1.15",
+			"DNT": "1",
+			"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+			"Accept-Encoding": "deflate, br",
+			"Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+			"Cookie": "ASP.NET_SessionId=4swouj1mkd2nburls12t5ryx; preferences=showDaytimeFlares=True; userInfo=lat=39.9042&amp;lng=116.4074&amp;alt=52&amp;tz=ChST&amp;loc=%e5%8c%97%e4%ba%ac%e5%b8%82"
+		}
+	};
+}
+
+/**
+ * Creates the options for an Iridium request.
+ * @param {string} target - The target URL.
+ * @returns {Object} The options for the request.
+ */
+function iridium_options(target) {
+	return {
+		url: target,
+		method: "GET",
+		headers: {
+			"Host": "www.heavens-above.com",
+			"Connection": "keep-alive",
+			"Cache-Control": "max-age=0",
+			"Upgrade-Insecure-Requests": "1",
+			"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.0 Safari/605.1.15",
+			"DNT": "1",
+			"Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+			"Accept-Encoding": "deflate, br",
+			"Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+			"Cookie": "ASP.NET_SessionId=4swouj1mkd2nburls12t5ryx; preferences=showDaytimeFlares=True; userInfo=lat=39.9042&amp;lng=116.4074&amp;alt=52&amp;tz=ChST&amp;loc=%e5%8c%97%e4%ba%ac%e5%b8%82"
+		}
+	};
+}
+
+/**
+ * Creates the MD5 hash of a string.
+ * @param {string} str - The string to hash.
+ * @returns {string} The MD5 hash.
+ */
+function md5(str) {
+	return crypto.createHash('md5').update(str).digest('hex');
+}
+
+module.exports = {
+	getTimestamp,
+	post_options,
+	get_options,
+	image_options,
+	iridium_options,
+	md5
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#compare">compare</a></li><li><a href="global.html#eventsIridium">eventsIridium</a></li><li><a href="global.html#getTable">getTable</a></li><li><a href="global.html#getTimestamp">getTimestamp</a></li><li><a href="global.html#get_options">get_options</a></li><li><a href="global.html#image_options">image_options</a></li><li><a href="global.html#iridium_options">iridium_options</a></li><li><a href="global.html#md5">md5</a></li><li><a href="global.html#post_options">post_options</a></li><li><a href="global.html#property">property</a></li><li><a href="global.html#weight">weight</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Fri Apr 26 2024 10:41:14 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
